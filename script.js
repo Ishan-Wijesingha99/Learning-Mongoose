@@ -30,24 +30,33 @@ const User = require('./User')
 
 // one way is using User() as a constructor function
 const createNewUserKyle = async function() {
+    try {
+        const kyleUser = new User({ firstName: 'Kyle', age: 27})
 
-    const kyleUser = new User({ firstName: 'Kyle', age: 27})
+        // we need to actually SAVE kyleUser to the mongoDB database
+        // .save() is asynchronous, so usually the creation of a new document is done inside an async function
+        await kyleUser.save()
 
-    // we need to actually SAVE kyleUser to the mongoDB database
-    // .save() is asynchronous, so usually the creation of a new document is done inside an async function
-    await kyleUser.save()
-
-    console.log(kyleUser)
-    // you don't have to worry about the __v property
+        console.log(kyleUser)
+        // you don't have to worry about the __v property
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 createNewUserKyle()
 
+
+
 // another way to create a new document (new user) is to use .create()
 const createNewUserJoe = async function() {
-    const joeUser = await User.create({ firstName: 'Joe', age: 23})
+    try {
+        const joeUser = await User.create({ firstName: 'Joe', age: 23})
 
-    console.log(joeUser)
+        console.log(joeUser)   
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 createNewUserJoe()
@@ -56,18 +65,21 @@ createNewUserJoe()
 
 // updating a document value
 const updateNewUserJill = async function() {
+    try {
+        const jillUser = await User.create({ firstName: 'Jill', age: 26})
 
-    const jillUser = await User.create({ firstName: 'Jill', age: 26})
+        console.log(jillUser)
 
-    console.log(jillUser)
+        // first change the firstName value
+        jillUser.firstName = 'Anna Maria'
 
-    // first change the firstName value
-    jillUser.firstName = 'Anna Maria'
+        // then actually save that change to the database
+        jillUser.save()
 
-    // then actually save that change to the database
-    jillUser.save()
-
-    console.log(jillUser)
+        console.log(jillUser)
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 updateNewUserJill()
