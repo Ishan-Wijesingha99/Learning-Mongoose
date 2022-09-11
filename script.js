@@ -5,6 +5,7 @@
 
 // require the mongoose module
 const mongoose = require('mongoose')
+const { findOne } = require('./User')
 
 // To set up a mongoose connection, we need to connect to a mongoDB database
 // if it's a database on your local device, just write 'mongodb://localhost/nameOfDatabase'
@@ -175,4 +176,30 @@ const kyleBestFriendPopulate = async function() {
 }
 
 kyleBestFriendPopulate()
+
+
+
+// using our own method on the User model
+const customMethodsOnInstanceAndModel = async function() {
+    try {
+        // custom method on Model User...
+
+        // we created findByFirstName ourselves in User.js
+        const annaMariaUser = await User.findByFirstName('Anna Maria')
+
+        console.log('---findByFirstName---', annaMariaUser, '---findByFirstName---')
+        
+
+
+        // custom method on instance...
+        const joeUser = await User.findOne({ firstName: 'Joe'})
+
+        // we created this method ourselves
+        joeUser.sayHi()
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+customMethodsOnInstanceAndModel()
 

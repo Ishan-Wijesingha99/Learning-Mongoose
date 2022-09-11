@@ -63,13 +63,38 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-// then we need to create the model FOR THIS schema
-// first argument is the name of the model, this is the name that will show up in the actual mongoDB database, and the second argument is the relevant schema
-const User = mongoose.model("User", userSchema)
-
-// export it
-module.exports = User;
-
 
 
 // remember, there are many ways to create a document in mongoose, and validation will only occur when you create a document through the User() constructor or User.create()
+
+
+
+// adding methods to a schema
+// what this does is, it adds a method to every instance created from this schema, so every User will have this method
+userSchema.methods.sayHi = function() {
+    // the 'this' keyword references the User instance, it is just an object after all
+    console.log(`Hi my name is ${this.firstName}`)
+}
+
+
+
+// you can also add your own methods on the model itself, not the instances
+// so for instance, User.findOne(), User.insertMany(), User.findById(), these are all methods on the User model
+// you can create your OWN!
+// let's create a method where we can search for a User by their firstName
+userSchema.statics.findByFirstName = function(firstName) {
+    // the 'this' keyword refers the model, so in this case User
+    return this.findOne({ firstName: new RegExp(firstName, 'i') })
+}
+
+
+
+// now we actually need to create the model FOR THIS schema
+// first argument is the name of the model, this is the name that will show up in the actual mongoDB database, and the second argument is the relevant schema
+// you have to make sure you write this code last to make sure all the code above is taken into consideration, so that all your custom methods are added
+const User = mongoose.model("User", userSchema)
+
+
+
+// export it
+module.exports = User;
