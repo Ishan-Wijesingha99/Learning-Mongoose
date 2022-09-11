@@ -1,0 +1,25 @@
+{
+  "name": "learning-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "listen": "nodemon script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ishan-Wijesingha99/Learning-Mongoose.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ishan-Wijesingha99/Learning-Mongoose/issues"
+  },
+  "homepage": "https://github.com/Ishan-Wijesingha99/Learning-Mongoose#readme",
+  "dependencies": {
+    "mongoose": "^6.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
