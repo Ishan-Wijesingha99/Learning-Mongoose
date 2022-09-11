@@ -203,3 +203,17 @@ const customMethodsOnInstanceAndModel = async function() {
 
 customMethodsOnInstanceAndModel()
 
+
+
+// accessing a virtual
+const virtualFunction = async function() {
+    try {
+        const kyleUser = await User.findOne({ firstName: 'Kyle' })
+
+        console.log(kyleUser.nameAndAge)   
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+virtualFunction()

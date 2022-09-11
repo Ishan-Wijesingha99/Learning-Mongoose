@@ -89,6 +89,17 @@ userSchema.statics.findByFirstName = function(firstName) {
 
 
 
+// virtuals
+// a virtual is just a property that exists on an individual instance
+// the first argument is the name of the virtual
+// in .get() we pass a callback function that is executed when the property is invoked (can't be an arrow function)
+userSchema.virtual('nameAndAge').get(function() {
+    // 'this' keyword points to the instance document (which is just an object)
+    return `${this.firstName} - ${this.age}`
+})
+
+
+
 // now we actually need to create the model FOR THIS schema
 // first argument is the name of the model, this is the name that will show up in the actual mongoDB database, and the second argument is the relevant schema
 // you have to make sure you write this code last to make sure all the code above is taken into consideration, so that all your custom methods are added
