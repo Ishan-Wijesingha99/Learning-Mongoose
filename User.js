@@ -100,6 +100,22 @@ userSchema.virtual('nameAndAge').get(function() {
 
 
 
+// creating middleware
+// if you want to execute some middleware (which are just functions) BEFORE then you use .pre
+// if you want to execute some middleware AFTER then you use .post
+
+// so in this case, before you save something to the database, you want to run this middleware
+// second argument is the middleware function you want to execute, it can't be an arrow function
+userSchema.pre('save', function(next) {
+
+    // the 'this' keyword points to the relevant document
+    this.updatedAt = Date.now()
+
+    // just like express middleware, you call the next() function to move on to the next middleware
+    next()
+})
+
+
 // now we actually need to create the model FOR THIS schema
 // first argument is the name of the model, this is the name that will show up in the actual mongoDB database, and the second argument is the relevant schema
 // you have to make sure you write this code last to make sure all the code above is taken into consideration, so that all your custom methods are added
